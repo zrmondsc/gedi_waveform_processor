@@ -8,5 +8,10 @@ notebooks/throwaway.ipynb
 __pycache__/
 *.pyc
 
+# Ignore large binary files
+models/*.keras
+models/*.npy
+logs/
+
 # OS files
 .DS_Store
