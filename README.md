@@ -1,4 +1,4 @@
-# gedi_waveform_processor
+# 🌲 gedi_waveform_processor
 
 A lightweight Python library for filtering, processing, and exporting GEDI L1B waveforms for deep learning workflows.
 
@@ -8,7 +8,7 @@ HDF5 functionality has been removed
 
 ## 📦 What's in the box?
 
-### `gedi_waveform_processor/`  
+### 🗂️ `gedi_waveform_processor/`  
 Python library to :
 - Filter GEDI L1B shots using quality flags
 - Decode, normalize, and resample waveform returns
@@ -17,7 +17,7 @@ Python library to :
 
 ---
 
-### `notebooks/`  
+### 🗂️ `notebooks/`  
 Short demos and reproducible experiments:
 - `demo.ipynb`: Intro to GEDI waveform processing with the library
 - `convolutional_autoencoder_demo.ipynb`: Baseline CAE training + reconstruction workflow
@@ -25,7 +25,7 @@ Short demos and reproducible experiments:
 
 ---
 
-### `models/`  
+### 🗂️ `models/`  
 Saved autoencoder models and embeddings:
 - `autoencoder_exp_xx.keras`: Sample trained model
 - `embeddings_exp_xx.npy`: Latent vectors
@@ -34,14 +34,14 @@ Saved autoencoder models and embeddings:
 
 ---
 
-### `data/`  
+### 🗂️ `data/`  
 Sample waveform data for quick testing:
 - `gedi_waveforms_tf.npz`: Processed waveform + metadata
 - `sample_data.geojson`: Raw GEDI shots in GeoJSON format (subset from GEDI_Subsetter, merged)
 
 ---
 
-### `plots/`  
+### 🗂️ `plots/`  
 .png files of waveform reconstruction comparisons:
 - `selected_indices.npy`: randomly selected waveform indices to plot
 - `exp_01_reconstructions.png`: reconstruction plots for experiment 01
