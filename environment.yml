@@ -9,6 +9,7 @@ dependencies:
   - matplotlib
   - scipy
   - h5py
+  - sklearn
   - pip
   - pip:
       - torch
