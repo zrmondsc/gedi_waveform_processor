@@ -1,0 +1,12 @@
+# Ignore large or unnecessary files
+data/sample_data_original.geojson
+
+# Ignore notebook throwaways or scratchpads
+notebooks/throwaway.ipynb
+
+# Python cache
+__pycache__/
+*.pyc
+
+# OS files
+.DS_Store

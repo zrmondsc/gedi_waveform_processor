@@ -1,0 +1,15 @@
+name: gedi_pro_env
+channels:
+  - conda-forge
+dependencies:
+  - python=3.9
+  - numpy
+  - pandas
+  - geopandas
+  - matplotlib
+  - scipy
+  - h5py
+  - pip
+  - pip:
+      - torch
+      - tensorflow
