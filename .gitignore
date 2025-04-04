@@ -11,7 +11,13 @@ __pycache__/
 # Ignore large binary files
 models/*.keras
 models/*.npy
-logs/
+
+# Ignore everything in plots/...
+plots/*
+
+# ...except .png and .npy plots we want to keep
+!plots/*.png
+!plots/*.npy
 
 # OS files
 .DS_Store
