@@ -1,6 +1,6 @@
 # gedi_waveform_processor
 
-A lightweight python library for filtering, processing, and exporting GEDI L1B waveforms for deep learning workflows.
+A lightweight Python library for filtering, processing, and exporting GEDI L1B waveforms for deep learning workflows.
 
 Designed to work with GEDI L1B data that have been processed from HDF5 to .geojson with NASA's GEDI_Subsetter tool. 
 
