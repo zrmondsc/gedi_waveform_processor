@@ -3,6 +3,7 @@ data/sample_data_original.geojson
 
 # Ignore notebook throwaways or scratchpads
 notebooks/throwaway.ipynb
+notebooks/convolutional_autoencoder_09.ipynb
 
 # Python cache
 __pycache__/
