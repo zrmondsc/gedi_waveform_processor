@@ -6,7 +6,7 @@ from tensorflow.keras.models import load_model
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 data_path = os.path.join(project_root, "data", "gedi_waveforms_tf.npz")
 encoder_path = os.path.join(project_root, "models", "cae_09_encoder.keras")
-output_path = os.path.join(project_root, "data", "encoded_latents.npz")
+output_path = os.path.join(project_root, "data", "encoded_latents_09.npz")
 
 # Load data
 data = np.load(data_path)
