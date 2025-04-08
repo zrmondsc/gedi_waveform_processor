@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "gedi_waveforms_tf_bbox",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 107.745108701946322, 33.681242345972457 ], [ 107.745108701946322, 33.85697927728183 ], [ 107.560550951443943, 33.85697927728183 ], [ 107.560550951443943, 33.681242345972457 ], [ 107.745108701946322, 33.681242345972457 ] ] ] } }
+]
+}

@@ -1,10 +1,15 @@
 # Ignore large or unnecessary files
 data/sample_data_original.geojson
+data/encoded_latents_09_points.cpg
+data/encoded_latents_09_points.dbf
+data/encoded_latents_09_points.prj
+data/encoded_latents_09_points.shp
+data/encoded_latents_09_points.shx
 
 # Ignore notebook throwaways or scratchpads
 notebooks/throwaway.ipynb
 notebooks/convolutional_autoencoder_09.ipynb
-notebooks/cae_latent_shape_experiments.ipynb
+# notebooks/cae_latent_shape_experiments.ipynb
 
 # Python cache
 __pycache__/
