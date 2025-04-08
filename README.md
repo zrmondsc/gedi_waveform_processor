@@ -31,21 +31,25 @@ Saved autoencoder models and embeddings:
 - `embeddings_exp_xx.npy`: Latent vectors
 - `encoder_exp_xx.keras` : Trained encoder from the model
 - `experiment_results.csv` : .csv file synthesizing the logged experiment results
-
+- `latent_shape_experiment_results.csv`: .csv file synthesizing logged results of latent shape experiments
 ---
 
 ### 🗂️ `data/`  
 Sample waveform data for quick testing:
 - `gedi_waveforms_tf.npz`: Processed waveform + metadata
 - `sample_data.geojson`: Raw GEDI shots in GeoJSON format (subset from GEDI_Subsetter, merged)
+- `encoded_latents.npz`: encoded GEDI waveforms (8 dims)
+- `encoded_latents_4x4,npz`: encoded GEDI waveforms (4,4)
 
 ---
 
 ### 🗂️ `plots/`  
 .png files of waveform reconstruction comparisons:
 - `selected_indices.npy`: randomly selected waveform indices to plot
+- `exp_01_reconstructions_4x4.png`: reconstruction plots for latent shape experiment 01
+- `exp_01_reconstructions_4x4.png`: reconstruction plots for latent shape experiment 01
 - `exp_01_reconstructions.png`: reconstruction plots for experiment 01
-- `exp_01_reconstructions.png`: reconstruction plots for experiment 02
+- `exp_02_reconstructions.png`: reconstruction plots for experiment 02
 
 
 ## Installation
