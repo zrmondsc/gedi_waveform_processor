@@ -1,11 +1,11 @@
 from tensorflow.keras import layers, models, optimizers, Input
 
-def build_CAE_06_2x8(input_shape=(500, 1), dropout_rate=0.1):
+def build_CAE_06_2x8(input_shape=(500, 1), dropout_rate=0.2):
     """
     Build a convolutional autoencoder with structured latent space (latent_len, latent_dim).
     """
 
-    latent_len, latent_dim = (4, 4)
+    latent_len, latent_dim = (2, 8)
     latent_size = latent_len * latent_dim
 
     # Encoder
