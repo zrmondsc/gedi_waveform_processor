@@ -50,7 +50,14 @@ class GediWaveformProcessor:
         Returns: 
             the most processed GeoDataFrame available.
         """
-        return self.processed_gdf or self.filtered_gdf or self.gdf
+        if self.processed_gdf is not None:
+            return self.processed_gdf
+        elif self.filtered_gdf is not None:
+            return self.filtered_gdf
+        elif self.gdf is not None:
+            return self.gdf
+        else:
+            raise ValueError("No GeoDataFrame is available, please initialize GediWaveformProcessor")
 
     def _get_waveform_and_label(self, row):
         """
