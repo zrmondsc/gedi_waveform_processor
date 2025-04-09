@@ -25,6 +25,9 @@ plots/*
 # Ignore everything in logs/
 logs/*
 
+# Except the placeholder
+!.gitkeep
+
 # ...except .png and .npy plots we want to keep
 !plots/*.png
 !plots/*.npy
