@@ -5,6 +5,11 @@ data/encoded_latents_09_points.dbf
 data/encoded_latents_09_points.prj
 data/encoded_latents_09_points.shp
 data/encoded_latents_09_points.shx
+data/encoded_latents_06_2x8_points.cpg
+data/encoded_latents_06_2x8_points.dbf
+data/encoded_latents_06_2x8_points.prj
+data/encoded_latents_06_2x8_points.shp
+data/encoded_latents_06_2x8_points.shx
 
 # Ignore notebook throwaways or scratchpads
 notebooks/throwaway.ipynb
