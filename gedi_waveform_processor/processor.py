@@ -196,64 +196,6 @@ class GediWaveformProcessor:
         print(f"Done. Skipped {skipped} invalid or malformed waveforms.")
         return df
 
-    # def export_ml_ready_dataset(self, out_path, format='npz'):
-    #     """
-    #     Export processed waveforms and metadata as an ML-ready dataset.
-
-    #     Assumes `self.processed_gdf` has already been created using `process_all_waveforms()`.
-
-    #     Parameters:
-    #         out_path (str): Output file path (.npz, .pt, or .csv).
-    #         format (str): 'npz' for TensorFlow, 'pt' for PyTorch, or 'csv'.
-
-    #     Saves:
-    #         A file containing:
-    #         - waveforms: list/array or torch.Tensor (n_samples, waveform_length)
-    #         - metadata: array or torch.Tensor (n_samples, 5) [shot_number_x, lat, lon, elev0, elev_last]
-    #     """
-    #     if self.processed_gdf is None:
-    #         raise RuntimeError("No processed_gdf found. Please run `process_all_waveforms()` first.")
-
-    #     df = self.processed_gdf
-
-    #     # Convert waveforms to uniform array
-    #     waveforms = np.array(df["rxwaveform_pro"].tolist())
-
-    #     # Extract metadata
-    #     metadata = df.apply(
-    #         lambda row: [
-    #             row['shot_number_x'],
-    #             row.geometry.y,
-    #             row.geometry.x,
-    #             row['geolocation_elevation_bin0'],
-    #             row['geolocation_elevation_lastbin']
-    #         ],
-    #         axis=1
-    #     ).to_list()
-    #     metadata = np.array(metadata)
-
-    #     # Save based on format
-    #     if format == 'npz':
-    #         np.savez(out_path, waveforms=waveforms, metadata=metadata)
-    #         print(f"✅ Saved TensorFlow-ready dataset to {out_path}")
-
-    #     elif format == 'pt':
-    #         data = {
-    #             'waveforms': torch.tensor(waveforms, dtype=torch.float32),
-    #             'metadata': torch.tensor(metadata, dtype=torch.float32)
-    #         }
-    #         torch.save(data, out_path)
-    #         print(f"✅ Saved PyTorch-ready dataset to {out_path}")
-
-    #     elif format == 'h5':
-    #         with h5py.File(out_path, 'w') as f:
-    #             f.create_dataset('waveforms', data=waveforms, compression='gzip')
-    #             f.create_dataset('metadata', data=metadata, compression='gzip')
-    #         print(f"✅ Saved HDF5 dataset to {out_path}")
-
-    #     else:
-    #         raise ValueError("❌ Format must be 'npz', 'pt'")
-
     def export_ml_ready_dataset(self, out_path, format='npz'):
         """
         Export processed waveforms and metadata as an ML-ready dataset.
@@ -265,71 +207,50 @@ class GediWaveformProcessor:
             format (str): 'npz' for TensorFlow, 'pt' for PyTorch, or 'h5' for HDF5.
 
         Saves:
-            A file containing:
-            - waveforms: array or torch.Tensor (n_samples, waveform_length)
-            - metadata: structured array or tensor (n_samples,) with fields:
-            ['shot_number_x' (str), 'lat' (float64), 'lon' (float64),
-            'elev0' (float64), 'elev_last' (float64)]
+            - waveforms: array or torch.Tensor of shape (n_samples, waveform_length)
+            - metadata: array or torch.Tensor of shape (n_samples, 4) [lat, lon, elev0, elev_last]
+            - shot_index: array of shape (n_samples,) as strings (shot_number_x)
         """
         if self.processed_gdf is None:
             raise RuntimeError("No processed_gdf found. Please run `process_all_waveforms()` first.")
 
         df = self.processed_gdf
 
-        # Convert waveforms to uniform array
+        # Convert waveforms to uniform float32 array
         waveforms = np.array(df["rxwaveform_pro"].tolist(), dtype=np.float32)
 
-        # Create structured dtype
-        dtype = [
-            ('shot_number_x', 'U21'),  # Unicode string long enough for ~20 digit IDs
-            ('lat', 'f8'),
-            ('lon', 'f8'),
-            ('elev0', 'f8'),
-            ('elev_last', 'f8')
-        ]
+        # Fast vectorized metadata extraction using np.stack
+        metadata = np.stack([
+            df.geometry.y.values,  # Latitude
+            df.geometry.x.values,  # Longitude
+            df['geolocation_elevation_bin0'].values,
+            df['geolocation_elevation_lastbin'].values
+        ], axis=1).astype(np.float64)
 
-        # Fill structured array
-        metadata = np.empty(len(df), dtype=dtype)
-        metadata['shot_number_x'] = df['shot_number_x'].astype(str).values
-        metadata['lat'] = df.geometry.y.values
-        metadata['lon'] = df.geometry.x.values
-        metadata['elev0'] = df['geolocation_elevation_bin0'].values
-        metadata['elev_last'] = df['geolocation_elevation_lastbin'].values
+        # Preserve shot_number_x as string array (safe for long IDs)
+        shot_index = np.array(df['shot_number_x'], dtype = 'U21') # let's try it this way
 
         # Save based on format
         if format == 'npz':
-            np.savez(out_path, waveforms=waveforms, metadata=metadata)
-            print(f"✅ Saved TensorFlow-ready dataset to {out_path}")
+            np.savez(out_path, waveforms=waveforms, metadata=metadata, shot_index=shot_index)
+            print(f"Saved TensorFlow-ready dataset to {out_path}")
 
         elif format == 'pt':
             data = {
                 'waveforms': torch.tensor(waveforms, dtype=torch.float32),
-                # Convert only the numeric part of metadata to tensor
-                'metadata': torch.tensor(
-                    np.stack([
-                        metadata['lat'],
-                        metadata['lon'],
-                        metadata['elev0'],
-                        metadata['elev_last']
-                    ], axis=1),
-                    dtype=torch.float32
-                ),
-                'shot_number_x': list(metadata['shot_number_x'])  # keep ID as list of strings
+                'metadata': torch.tensor(metadata, dtype=torch.float32),
+                'shot_index': shot_index.astype('U21')  # Keep as list of strings for PyTorch compatibility
             }
             torch.save(data, out_path)
-            print(f"✅ Saved PyTorch-ready dataset to {out_path}")
+            print(f"Saved PyTorch-ready dataset to {out_path}")
 
         elif format == 'h5':
             with h5py.File(out_path, 'w') as f:
                 f.create_dataset('waveforms', data=waveforms, compression='gzip')
-                f.create_dataset('metadata/lat', data=metadata['lat'])
-                f.create_dataset('metadata/lon', data=metadata['lon'])
-                f.create_dataset('metadata/elev0', data=metadata['elev0'])
-                f.create_dataset('metadata/elev_last', data=metadata['elev_last'])
-                # String saving workaround for HDF5
+                f.create_dataset('metadata', data=metadata, compression='gzip')
+                f.create_dataset('shot_index', data=shot_index, dtype=dt, compression='gzip')
                 dt = h5py.string_dtype(encoding='utf-8')
-                f.create_dataset('metadata/shot_number_x', data=metadata['shot_number_x'], dtype=dt)
-            print(f"✅ Saved HDF5 dataset to {out_path}")
+            print(f"Saved HDF5 dataset to {out_path}")
 
         else:
-            raise ValueError("❌ Format must be 'npz', 'pt', or 'h5'")
+            raise ValueError("Format must be one of: 'npz', 'pt', or 'h5'")

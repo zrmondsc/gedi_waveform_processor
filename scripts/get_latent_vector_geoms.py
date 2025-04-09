@@ -10,13 +10,14 @@ def create_points(npz_file, output_file):
     # Load .npz file
     data = np.load(npz_file)
     meta = data['metadata']
+    shot_index = data['shot_index']
 
     # Extract lat/lon
-    lats = np.array(meta[:, 1])
-    lons = np.array(meta[:, 2])
+    lats = np.array(meta[:, 0])
+    lons = np.array(meta[:, 1])
 
     # Extract shot numbers
-    shot_number = meta[:, 0].astype(str)
+    shot_number = shot_index
 
     # Create a list of geometries
     points = [Point(lon, lat) for lat, lon in zip(lats, lons)]

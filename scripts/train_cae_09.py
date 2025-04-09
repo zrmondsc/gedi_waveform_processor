@@ -16,10 +16,11 @@ os.makedirs(model_dir, exist_ok=True)
 data = np.load(data_path)
 waveforms = data['waveforms'][..., np.newaxis]
 metadata = data['metadata']
+shot_index = data['shot_index']
 
 # Split and shuffle data
-x_train, x_val, meta_train, meta_val = train_test_split(
-    waveforms, metadata, test_size=0.3, shuffle=True, random_state=42
+x_train, x_val, meta_train, meta_val, si_train, si_val = train_test_split(
+    waveforms, metadata, shot_index, test_size=0.3, shuffle=True, random_state=42
 )
 
 # Build and initialize the model

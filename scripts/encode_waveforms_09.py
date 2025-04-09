@@ -12,6 +12,7 @@ output_path = os.path.join(project_root, "data", "encoded_latents_09.npz")
 data = np.load(data_path)
 waveforms = data['waveforms'][..., np.newaxis]  # Shape: (N, 500, 1)
 metadata = data['metadata']                    # Shape: (N,) or (N, D)
+shot_index = data['shot_index']
 
 # Load encoder model
 encoder = load_model(encoder_path)
@@ -20,5 +21,5 @@ encoder = load_model(encoder_path)
 latent_vectors = encoder.predict(waveforms, batch_size=64, verbose=1)
 
 # Save the encoded waveforms and metadata
-np.savez(output_path, latents=latent_vectors, metadata=metadata)
+np.savez(output_path, latents=latent_vectors, metadata=metadata, shot_index = shot_index)
 print(f"Saved encoded latents + metadata to: {output_path}")

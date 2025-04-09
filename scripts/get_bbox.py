@@ -12,8 +12,8 @@ def create_bbox(npz_file, output_file):
     meta = data['metadata']
 
     # Extract latitude and longitude
-    lats= np.array(meta[:,1])
-    lons = np.array(meta[:,2])
+    lats= np.array(meta[:,0])
+    lons = np.array(meta[:,1])
 
     # Compute the bbox
     minx, maxx = lons.min(), lons.max()
