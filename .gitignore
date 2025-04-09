@@ -22,6 +22,9 @@ models/*.npy
 # Ignore everything in plots/...
 plots/*
 
+# Ignore everything in logs/
+logs/*
+
 # ...except .png and .npy plots we want to keep
 !plots/*.png
 !plots/*.npy
