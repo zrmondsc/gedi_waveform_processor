@@ -39,9 +39,10 @@ Saved autoencoder models and embeddings:
 ### 🗂️ `data/`  
 Sample waveform data for quick testing:
 - `gedi_waveforms_tf.npz`: Processed waveform + metadata
+- `gedi_waveforms_tf_bbox.geojson`: Bounding box for GEDI shots
 - `sample_data.geojson`: Raw GEDI shots in GeoJSON format (subset from GEDI_Subsetter, merged)
-- `encoded_latents.npz`: encoded GEDI waveforms (8 dims)
-- `encoded_latents_4x4,npz`: encoded GEDI waveforms (4,4)
+- `encoded_latents_09.npz`: encoded GEDI waveforms (8 dims)
+- `encoded_latents_06_2x8,npz`: encoded GEDI waveforms (2,8)
 
 ---
 
@@ -53,6 +54,12 @@ Sample waveform data for quick testing:
 - `exp_01_reconstructions.png`: reconstruction plots for experiment 01
 - `exp_02_reconstructions.png`: reconstruction plots for experiment 02
 
+---
+
+### 🗂️ `plots/`  
+geoprocessing scripts and modular .py scripts for streamlined model training and implementation
+
+---
 
 ## Installation
 ```bash
