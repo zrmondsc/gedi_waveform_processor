@@ -21,7 +21,9 @@ Python library to :
 Short demos and reproducible experiments:
 - `demo.ipynb`: Intro to GEDI waveform processing with the library
 - `convolutional_autoencoder_demo.ipynb`: Baseline CAE training + reconstruction workflow
-- `convolutional_autoencoder_experiments.ipynb`: Automated experiments for Latent space tuning, dropout, batchnorm, bottleneck type, logging, and visual outputs
+- `convolutional_autoencoder_experiments.ipynb`: Automated experiments for Latent shape tuning, dropout, batchnorm, bottleneck type, logging, and visual outputs
+- `cae_latent_shape_experiments.ipynb`: Additional automated experiments for latent shape tuning
+- `export_rs_dataset.ipynb`: Acquire, process, and export remote sensing imagery from **Google Earth Engine** for CNN modelling workflow 
 
 ---
 
