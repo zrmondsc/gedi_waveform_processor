@@ -14,6 +14,7 @@ data/encoded_latents_06_2x8_points.shx
 # Ignore notebook throwaways or scratchpads
 notebooks/throwaway.ipynb
 notebooks/convolutional_autoencoder_09.ipynb
+notebooks/cnn_regression_3x3_sentinel_to_latent_gedi.ipynb
 # notebooks/cae_latent_shape_experiments.ipynb
 
 # Python cache
@@ -36,6 +37,9 @@ logs/*
 # ...except .png and .npy plots we want to keep
 !plots/*.png
 !plots/*.npy
+
+# Ignore our notes doc
+notes.docx
 
 # OS files
 .DS_Store
